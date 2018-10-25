@@ -1,12 +1,12 @@
 ﻿
 listaAdministradores=[]
-listaEstudiantes=[]
-listaDocentes=[]
-listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI'}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL'},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC'}]
-listaCursos=[]
+listaEstudiantes=[{'nombre':'Andres','apellido':'Martinez Gonzales','direccion': 'Ciudad Quesada', 'telefono': '86543223', 'correo':'amartinez@itcr.ac.cr'}]
+listaDocentes=[{'nombre':'Margarita','apellido':'Campos Zamora','direccion': 'Ciudad Quesada', 'telefono': '89767654', 'correo':'mcampos@itcr.ac.cr'}]
+listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI', 'cursos':[],'docentes':[],'estudiantes':['Andres']}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL', 'cursos':[],'docentes':[],'estudiantes':[]},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC', 'cursos':[],'docentes':[],'estudiantes':[]}]
+listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}]
 listaRecintos=[{'nombre':'San Carlos', 'direccion': 'Santa Clara frente al chino'}]
-listaAulas=[]
-listaHorarios=[]
+listaAulas=[{'codigo': '01', 'recinto': 'San Carlos'}]
+listaHorarios=[{'nombre':'matutino','inicio':'8:00','fin':'11:000'}]
 
 
 ## MANTENIMIENTO ESTUDIANTES
@@ -98,8 +98,11 @@ def agregarCarreras():
     nombreCarrera=input("Digite el nombre de la nueva carrera: ")
     codigoCarrera=input("Digite el código de la nueva carrera: ")
 
-    nuevaCarrera["nombre"]=nombreDocente
-    nuevaCarrera["codigo"]=apellidosDocente
+    nuevaCarrera["nombre"]=nombreCarrera
+    nuevaCarrera["codigo"]=codigoCarrera
+    nuevaCarrera["cursos"]= []
+    nuevaCarrera["docentes"]=[]
+    nuevaCarrera["estudiantes"]=[]
 
     listaCarreras.append(nuevaCarrera)
 
@@ -126,6 +129,11 @@ def agregarCursos():
 
     nuevoCurso["nombre"]=nombreCurso
     nuevoCurso["codigo"]=codigoCurso
+    nuevoCurso["recintos"]=[]
+    nuevoCurso["aulas"]=[]
+    nuevoCurso["horarios"]=[]
+    nuevoCurso["docentes"]=[]
+    nuevoCurso["estudiantes"]=[]
 
     listaCursos.append(nuevoCurso)
 
@@ -225,6 +233,246 @@ def eliminarHorario():
             print("El horario fue eliminado con exito")
         else:
             print("El horario no fue encontrado en el sistema")
+
+
+## SECCION OPERATIVA
+## VINCULACIONES
+
+# VINCULAR CURSOS CON CARRERAS
+def asignarCursosCarrera():
+    carrera= input("Digite el código de la carrera a la que desea agregar un curso.")
+    for element in listaCarreras:
+        if element["codigo"] == carrera:
+            curso= input("Digite el código del curso que desea vincular")
+            for elemento in listaCursos:
+                if elemento["codigo"] == curso:
+                    element["cursos"].append(curso)
+                    print("Vinculación exitosa")
+                    print(listaCarreras)
+
+                else:
+                    print("El curso no se encuentra registrado")
+
+def desasignarCursosCarrera():
+    carrera=input("Digite el código de la carrera de la que desea desasignar un curso.")
+    for element in listaCarreras:
+        if element["codigo"] == carrera:
+            curso= input("Digite el código del curso que desea desvincular")
+            for elemento in element["cursos"]:
+                if elemento == curso:
+                    element["cursos"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCarreras)
+
+
+
+## VINCULAR RECINTOS CON CURSOS
+def asignarRecintosCursos():
+    curso= input("Digite el código del curso al que desea agregar un recinto.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            recinto= input("Digite el nombre del recinto que desea vincular")
+            for elemento in listaRecintos:
+                if elemento["nombre"] == recinto:
+                    element["recintos"].append(recinto)
+                    print("Vinculación exitosa")
+                    print(listaCursos)
+
+                else:
+                    print("El recinto no se encuentra registrado")
+
+def desasignarRecintosCursos():
+    curso=input("Digite el código del curso del que desea desasignar un recinto.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            recinto= input("Digite el nombre del recinto que desea desvincular")
+            for elemento in element["recintos"]:
+                if elemento == recinto:
+                    element["recintos"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCursos)
+
+## VINCULAR AULAS A CURSOS
+def asignarAulasCursos():
+    curso= input("Digite el código del curso al que desea agregar un aula.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            aula= input("Digite el codigo del aula que desea vincular")
+            for elemento in listaAulas:
+                if elemento["codigo"] == aula:
+                    element["aulas"].append(aula)
+                    print("Vinculación exitosa")
+                    print(listaCursos)
+
+                else:
+                    print("El aula no se encuentra registrado")
+
+def desasignarAulasCursos():
+    curso=input("Digite el código del curso del que desea desasignar un recinto.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            aula= input("Digite el codigo del aula que desea desvincular")
+            for elemento in element["aulas"]:
+                if elemento == aula:
+                    element["aulas"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCursos)
+
+## VINCULAR HORARIOS A CURSOS
+def asignarHorariosCursos():
+    curso= input("Digite el código del curso al que desea agregar un horario.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            horario= input("Digite el nombre del horario que desea vincular")
+            for elemento in listaHorarios:
+                if elemento["nombre"] == horario:
+                    element["horarios"].append(horario)
+                    print("Vinculación exitosa")
+                    print(listaCursos)
+
+                else:
+                    print("El horario no se encuentra registrado")
+
+def desasignarHorariosCursos():
+    curso=input("Digite el código del curso del que desea desasignar un horario.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            horario= input("Digite el nombre del horario que desea desvincular")
+            for elemento in element["horarios"]:
+                if elemento == horario:
+                    element["horarios"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCursos)
+
+
+## VINCULAR ESTUDIANTES A CURSOS
+def asignarEstudiantesCursos():
+    curso= input("Digite el código del curso al que desea agregar un estudiante.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            estudiante= input("Digite el nombre del estudiante que desea vincular")
+            for elemento in listaEstudiantes:
+                if elemento["nombre"] == estudiante:
+                    element["estudiantes"].append(estudiante)
+                    print("Vinculación exitosa")
+                    print(listaCursos)
+
+                else:
+                    print("El estudiante no se encuentra registrado")
+
+def desasignarEstudiantesCursos():
+    curso=input("Digite el código del curso del que desea desasignar un estudiante.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            estudiante= input("Digite el nombre del estudiante que desea desvincular")
+            for elemento in element["estudiantes"]:
+                if elemento == estudiante:
+                    element["estudiantes"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCursos)
+
+## VINCULACION DOCENTES A CURSOS
+
+def asignarDocentesCursos():
+    curso= input("Digite el código del curso al que desea agregar un docente.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            docente= input("Digite el nombre del docente que desea vincular")
+            for elemento in listaDocentes:
+                if elemento["nombre"] == docente:
+                    element["docentes"].append(docente)
+                    print("Vinculación exitosa")
+                    print(listaCursos)
+
+                else:
+                    print("El docente no se encuentra registrado")
+
+def desasignarDocentesCursos():
+    curso=input("Digite el código del curso del que desea desasignar un docente.")
+    for element in listaCursos:
+        if element["codigo"] == curso:
+            docente= input("Digite el nombre del docente que desea desvincular")
+            for elemento in element["docentes"]:
+                if elemento == docente:
+                    element["docentes"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCursos)
+
+
+## VINCULAR DOCENTE CARRERA
+def asignarDocenteCarrera():
+    carrera=input("Digite el código de la carrera a la que desea agregar un docente.")
+    for element in listaCarreras:
+        if element["codigo"] == carrera:
+            docente=input("Digite el nombre del docente que desea vincular")
+            for elemento in listaDocentes:
+                if elemento["nombre"] == docente:
+                    element["docentes"].append(docente)
+                    print("Vinculación exitosa")
+                    print(listaCarreras)
+
+                else:
+                    print("El docente no se encuentra registrado")
+
+
+def desasignarDocentesCarrera():
+    carrera=input("Digite el código de la carrera del que desea desasignar un docente.")
+    for element in listaCarreras:
+        if element["codigo"] == carrera:
+            docente=input("Digite el nombre del docente que desea desvincular")
+            for elemento in element["docentes"]:
+                if elemento == docente:
+                    element["docentes"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCarreras)
+
+
+## VINCULACION DOCENTE CARRERA
+def asignarEstudiantesCarrera():
+    carrera= input("Digite el código de la carrera al que desea agregar un estudiante.")
+    for element in listaCarreras:
+        if element["codigo"] == carrera:
+            estudiante= input("Digite el nombre del estudiante que desea vincular")
+            for elemento in listaEstudiantes:
+                if elemento["nombre"] == estudiante:
+                    element["estudiantes"].append(estudiante)
+                    print("Vinculación exitosa")
+                    print(listaCarreras)
+
+                else:
+                    print("El estudiante no se encuentra registrado")
+
+def desasignarEstudiantesCarrera():
+    carrera=input("Digite el código de la carrera del que desea desasignar un estudiante.")
+    for element in listaCarreras:
+        if element["codigo"] == carrera:
+            estudiante= input("Digite el nombre del estudiante que desea desvincular")
+            for elemento in element["estudiantes"]:
+                if elemento == estudiante:
+                    element["estudiantes"].remove(elemento)
+                    print("Desvinculación exitosa")
+                    print(listaCarreras)
+
+## REPORTES
+
+def reporteUno():
+    estudiante= input("Digite el nombre del estudiante que desea ver")
+    lista=[]
+    for element in listaCarreras:
+        if estudiante in element["estudiantes"]:
+            lista.append(element["nombre"])
+
+    if len(lista)== 0:
+        print("El estudiante no se encuentra en ninguna carrera")
+    else:
+        for e in lista:
+            print(e)
+
+def reporteDos():
+    estudiante=input("Digite el nombre del estudiante que desea ver")
+
+
+
 
 ## MENU MANTENIMIENTOS
 def menu_administrativo():
@@ -427,4 +675,6 @@ def menu_principal():
         print("-----------------------------")
         return menu_principal()
         print()
-menu_principal()
+#menu_principal()
+
+reporteUno()
