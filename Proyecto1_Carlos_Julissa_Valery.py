@@ -471,7 +471,24 @@ def reporteUno():
 def reporteDos():
     estudiante=input("Digite el nombre del estudiante que desea ver")
 
+def reporteTres():
+    print("")
 
+
+def reporteCuatro():
+    print("")
+
+
+def reporteCinco():
+    print("")
+
+
+def reporteSeis():
+    print("")
+
+
+def reporteSiete():
+    print("")
 
 
 ## MENU MANTENIMIENTOS
@@ -634,6 +651,204 @@ def menu_administrativo():
     else:
         print("Error, opción inválida. Vuelva a intentarlo.")
         print()
+        return menu_operativo()
+
+
+def menu_reportes():
+    print("Menú Reportes")
+    print()
+    print("En esta sección las opciones son: ")
+    print("1.Reporte 1: Lista de carreras a la que un estudiante pertenece")
+    print("2.Reporte 2: Lista de cursos por carrera que un estudiante pertenece")
+    print("3.Reporte 3: Lista de cursos por carrera que un docente pertenece.")
+    print("4.Reporte 4: Curso por cada carrera con más estudiantes matriculados.")
+    print("5.Reporte 5: Curso por cada carrera con menos estudiantes matriculados.")
+    print("6.Reporte 6: Horario de un curso de una carrera, con más estudiantes están matriculados.")
+    print("7.Reporte 7: Carrera, cursos, recinto de cada curso, aula de cada recinto, horario de cada curso de un estudiante en específico.")
+    print("8.Salir")
+    print()
+    opcion3=input("Digite la opcion que desea realizar: ")
+    if opcion3=="1":
+        reporteUno()
+        menu_reportes()
+    if opcion3=="2":
+        reporteDos()
+        menu_reportes()
+    if opcion3=="3":
+        reporteTres()
+        menu_reportes()
+    if opcion3=="4":
+        reporteCuatro()
+        menu_reportes()
+    if opcion3=="5":
+        reporteCinco()
+        menu_reportes()
+    if opcion3=="6":
+        reporteSeis()
+        menu_reportes()
+    if opcion3 == "7":
+        reporteSiete()
+        menu_reportes()
+    if opcion3 == "8":
+        return menu_principal()
+    else:
+        print("Error, opción inválida. Vuelva a intentarlo.")
+        print()
+        return menu_reportes()
+
+
+## MENU REPORTES
+
+def menu_operativo():
+    print("Menú Operativo")
+    print()
+    print("En esta sección las opciones de vinculación son: ")
+    print("1.Cursos a carrera")
+    print("2.Recinto a curso")
+    print("3.Aula a un curso")
+    print("4.Horario a un curso")
+    print("5.Docente a una carrera")
+    print("6.Docente a un curso")
+    print("7.Estudiante a una carrera")
+    print("8.Estudiante a un curso")
+    print("9.Salir")
+    print()
+    opcion3=input("Digite la opcion que desea realizar: ")
+    if opcion3 == "1":
+        print("1.Agregar curso a una carrera")
+        print("2.Eliminar curso de una carrera")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarCursosCarrera()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarCursosCarrera()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+    if opcion3 == "2":
+        print("1.Agregar recinto a un curso")
+        print("2.Eliminar recinto de un curso")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarRecintosCursos()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarRecintosCursos()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+    if opcion3 == "3":
+        print("1.Agregar aula a un curso")
+        print("2.Eliminar aula de un curso")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarAulasCursos()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarAulasCursos()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+    if opcion3 == "4":
+        print("1.Agregar horario a un curso")
+        print("2.Eliminar horario de un curso")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarHorariosCursos()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarHorariosCursos()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+    if opcion3 == "5":
+        print("1.Agregar docente a una carrera")
+        print("2.Eliminar docente de una carrera")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarDocenteCarrera()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarDocentesCarrera()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+    if opcion3 == "6":
+        print("1.Agregar un docente a un curso")
+        print("2.Eliminar docente de un curso")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarDocentesCursos()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarDocentesCursos()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+    if opcion3 == "7":
+        print("1.Agregar estudiante a una carrera")
+        print("2.Eliminar estudiante de una carrera")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarEstudiantesCarrera()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarEstudiantesCarrera()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+
+    if opcion3 == "8":
+        print("1.Agregar estudiante a un curso")
+        print("2.Eliminar estudiante de un curso")
+        print("3.Salir")
+        opcion4=input("Digite la opcion que desea realizar: ")
+        if opcion4 == "1":
+            asignarEstudiantesCursos()
+            menu_operativo()
+        if opcion4 == "2":
+            desasignarEstudiantesCursos()
+            menu_operativo()
+        if opcion4 == "3":
+            menu_operativo()
+        else:
+            print("La opción no es valida")
+            menu_operativo()
+
+    if opcion3 == "9":
+        return menu_principal()
+    else:
+        print("Error, opción inválida. Vuelva a intentarlo.")
+        print()
         return menu_administrativo()
 
 
@@ -657,11 +872,11 @@ def menu_principal():
         return menu_administrativo()
 
     if opcion=="2":
-        return menu_administrativo()
+        return menu_operativo()
 
     if opcion=="3":
         print()
-        return menu_administrativo()
+        return menu_reportes()
 
     if opcion=="4":
         print()
@@ -675,6 +890,6 @@ def menu_principal():
         print("-----------------------------")
         return menu_principal()
         print()
-#menu_principal()
 
-reporteUno()
+menu_principal()
+
