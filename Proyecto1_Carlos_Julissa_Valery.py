@@ -1,12 +1,32 @@
 ﻿
-listaAdministradores=[]
+listaAdministradores=[{'usuario':'valery','contraseña':'valery123'}, {'usuario':'carlos','contraseña':'carlos123'}, {'usuario':'julissa','contraseña':'julissa123'}]
 listaEstudiantes=[{'nombre':'Andres','apellido':'Martinez Gonzales','direccion': 'Ciudad Quesada', 'telefono': '86543223', 'correo':'amartinez@itcr.ac.cr'}]
 listaDocentes=[{'nombre':'Margarita','apellido':'Campos Zamora','direccion': 'Ciudad Quesada', 'telefono': '89767654', 'correo':'mcampos@itcr.ac.cr'}]
-listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI', 'cursos':[],'docentes':[],'estudiantes':['Andres']}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL', 'cursos':[],'docentes':[],'estudiantes':[]},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC', 'cursos':[],'docentes':[],'estudiantes':[]}]
-listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}]
+listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI', 'cursos':['Intro', 'Mate'],'docentes':['Margarita'],'estudiantes':['Andres']}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL', 'cursos':['Calculo'],'docentes':[],'estudiantes':['Andres']},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC', 'cursos':[],'docentes':[],'estudiantes':[]}]
+listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':['Margarita'], 'estudiantes':['Andres']},{'nombre' : 'Mate', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}, {'nombre' : 'Calculo', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':['Andres', 'Maria', 'Juan']}]
 listaRecintos=[{'nombre':'San Carlos', 'direccion': 'Santa Clara frente al chino'}]
 listaAulas=[{'codigo': '01', 'recinto': 'San Carlos'}]
 listaHorarios=[{'nombre':'matutino','inicio':'8:00','fin':'11:000'}]
+
+def validarUsuario():
+    print()
+    print("            *** Login ***")
+    print("Bienvenido al Sistema de Gestión Universitaria")
+    print()
+    usuario= input("Digite su nombre de usuario: ")
+    contraseña= input("Digite su contraseña: ")
+
+    validar= False
+    for element in listaAdministradores:
+        if element['usuario']== usuario:
+            if element['contraseña']== contraseña:
+                validar= True
+                menu_principal()
+
+    if validar == False:
+        print("El usuario no se encuentra registrado.")
+        validarUsuario()
+
 
 
 ## MANTENIMIENTO ESTUDIANTES
@@ -456,7 +476,7 @@ def desasignarEstudiantesCarrera():
 ## REPORTES
 
 def reporteUno():
-    estudiante= input("Digite el nombre del estudiante que desea ver")
+    estudiante= input("Digite el nombre del estudiante que desea ver: ")
     lista=[]
     for element in listaCarreras:
         if estudiante in element["estudiantes"]:
@@ -469,22 +489,76 @@ def reporteUno():
             print(e)
 
 def reporteDos():
-    estudiante=input("Digite el nombre del estudiante que desea ver")
+    estudiante=input("Digite el nombre del estudiante que desea ver: ")
+    for element in listaCarreras:
+        print(element["nombre"])
+        for x in element["cursos"]:
+            for curso in listaCursos:
+                if curso["nombre"]== x:
+                    if estudiante in curso["estudiantes"]:
+                        print(" -", curso["nombre"])
+    print(" ")
 
 def reporteTres():
-    print("")
+    docente=input("Digite el nombre del docente que desea ver: ")
+    for element in listaCarreras:
+        print(element["nombre"])
+        for x in element["cursos"]:
+            for curso in listaCursos:
+                if curso["nombre"] == x:
+                    if docente in curso["docentes"]:
+                        print(" -", curso["nombre"])
+    print(" ")
 
 
 def reporteCuatro():
-    print("")
+    cursoMayor=0
+    nomCursoMayor= ""
+    for element in listaCarreras:
+        print(element["nombre"])
+        for x in element["cursos"]:
+            for curso in listaCursos:
+                if x== curso["nombre"]:
+                    if len(curso["estudiantes"]) >= cursoMayor:
+                        cursoMayor= len(curso["estudiantes"])
+                        nomCursoMayor= curso["nombre"]
+        print(nomCursoMayor, "Cantidad: ", cursoMayor)
+
+    print(" ")
 
 
 def reporteCinco():
-    print("")
+    cursoMayor=0
+    nomCursoMayor=""
+    for element in listaCarreras:
+        print(element["nombre"])
+        for x in element["cursos"]:
+            for curso in listaCursos:
+                if x == curso["nombre"]:
+                    if len(curso["estudiantes"]) <= cursoMayor:
+                        cursoMayor=len(curso["estudiantes"])
+                        nomCursoMayor=curso["nombre"]
+        print(nomCursoMayor, "Cantidad: ", cursoMayor)
+
+    print(" ")
 
 
 def reporteSeis():
-    print("")
+    cursoMayor=0
+    nomCursoMayor=""
+    horario=[]
+    for element in listaCarreras:
+        print(element["nombre"])
+        for x in element["cursos"]:
+            for curso in listaCursos:
+                if x == curso["nombre"]:
+                    if len(curso["estudiantes"]) >= cursoMayor:
+                        cursoMayor=len(curso["estudiantes"])
+                        nomCursoMayor=curso["nombre"]
+                        horario= curso["horarios"]
+        print(nomCursoMayor, " Horario: ", horario)
+
+    print(" ")
 
 
 def reporteSiete():
@@ -891,5 +965,5 @@ def menu_principal():
         return menu_principal()
         print()
 
-menu_principal()
+validarUsuario()
 

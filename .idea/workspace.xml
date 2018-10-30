@@ -16,8 +16,8 @@
       <file leaf-file-name="Proyecto1_Carlos_Julissa_Valery.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Proyecto1_Carlos_Julissa_Valery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1740">
-              <caret line="372" lean-forward="true" selection-start-line="372" selection-end-line="372" />
+            <state relative-caret-position="9486">
+              <caret line="558" column="31" selection-start-line="558" selection-start-column="31" selection-end-line="558" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -27,6 +27,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>hora</find>
+      <find>usuar</find>
+      <find>repor</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -118,15 +120,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.052083332" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49746192" visible="true" weight="0.052083332" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35620916" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.35620916" />
+      <window_info id="Structure" order="1" sideWeight="0.5025381" side_tool="true" visible="true" weight="0.052083332" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -145,6 +146,13 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Proyecto1_Carlos_Julissa_Valery.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6324">
+          <caret line="372" lean-forward="true" selection-start-line="372" selection-end-line="372" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Proyecto1_Carlos_Julissa_Valery.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="36" column="65" selection-start-line="36" selection-start-column="65" selection-end-line="36" selection-end-column="65" />
         </state>
@@ -152,8 +160,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Proyecto1_Carlos_Julissa_Valery.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1740">
-          <caret line="372" lean-forward="true" selection-start-line="372" selection-end-line="372" />
+        <state relative-caret-position="9486">
+          <caret line="558" column="31" selection-start-line="558" selection-start-column="31" selection-end-line="558" selection-end-column="31" />
         </state>
       </provider>
     </entry>
