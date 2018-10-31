@@ -1,13 +1,15 @@
 ﻿
+# List of dictionaries to save the data, with default data
 listaAdministradores=[{'usuario':'valery','contraseña':'valery123'}, {'usuario':'carlos','contraseña':'carlos123'}, {'usuario':'julissa','contraseña':'julissa123'}]
-listaEstudiantes=[{'nombre':'Andres','apellido':'Martinez Gonzales','direccion': 'Ciudad Quesada', 'telefono': '86543223', 'correo':'amartinez@itcr.ac.cr'}]
-listaDocentes=[{'nombre':'Margarita','apellido':'Campos Zamora','direccion': 'Ciudad Quesada', 'telefono': '89767654', 'correo':'mcampos@itcr.ac.cr'}]
-listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI', 'cursos':['Intro', 'Mate'],'docentes':['Margarita'],'estudiantes':['Andres']}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL', 'cursos':['Calculo'],'docentes':[],'estudiantes':['Andres']},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC', 'cursos':[],'docentes':[],'estudiantes':[]}]
-listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':['Margarita'], 'estudiantes':['Andres']},{'nombre' : 'Mate', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}, {'nombre' : 'Calculo', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':['Andres', 'Maria', 'Juan']}]
+listaEstudiantes=[{'cedula':'201230123','nombre':'Andres','apellido':'Martinez Gonzales','direccion': 'Ciudad Quesada', 'telefono': '86543223', 'correo':'amartinez@itcr.ac.cr'}]
+listaDocentes=[{'cedula':'201230198','nombre':'Margarita','apellido':'Campos Zamora','direccion': 'Ciudad Quesada', 'telefono': '89767654', 'correo':'mcampos@itcr.ac.cr'}]
+listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI', 'cursos':['Intro', 'Mate'],'docentes':['201230198'],'estudiantes':['201230123']}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL', 'cursos':['Calculo'],'docentes':[],'estudiantes':['Andres']},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC', 'cursos':[],'docentes':[],'estudiantes':[]}]
+listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':['201230198'], 'estudiantes':['201230123']},{'nombre' : 'Mate', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}, {'nombre' : 'Calculo', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':['Andres', 'Maria', 'Juan']}]
 listaRecintos=[{'nombre':'San Carlos', 'direccion': 'Santa Clara frente al chino'}]
 listaAulas=[{'codigo': '01', 'recinto': 'San Carlos'}]
-listaHorarios=[{'nombre':'matutino','inicio':'8:00','fin':'11:000'}]
+listaHorarios=[{'nombre':'matutino','inicio':'8:00','fin':'11:00'}]
 
+#Function to validate that the user is registered as administrator, to have access to system functions
 def validarUsuario():
     print()
     print("            *** Login ***")
@@ -29,80 +31,192 @@ def validarUsuario():
 
 
 
-## MANTENIMIENTO ESTUDIANTES
+## STUDENT MAINTENANCE
+# Function to add new students
 def agregarEstudiantes():
     nuevoEstudiante= {}
 
+    cedulaEstudiante= input("Digite la cedula del nuevo estudiante: ")
     nombreEstudiante= input("Digite el nombre del nuevo estudiante: ")
     apellidosEstudiante= input("Digite los apellidos del nuevo estudiante: ")
     direccionEstudiante= input("Digite la direccion del nuevo estudiante: ")
     telefonoEstudiante= input("Digite el numero de telefono del nuevo estudiante: ")
     correoEstudiante= input("Digite el correo del TEC del nuevo estudiante: ")
 
-    nuevoEstudiante["nombre"]=nombreEstudiante
-    nuevoEstudiante["apellido"]=apellidosEstudiante
-    nuevoEstudiante["direccion"]= direccionEstudiante
-    nuevoEstudiante["telefono"]=telefonoEstudiante
-    nuevoEstudiante["correo"]=correoEstudiante
-    if correoEstudiante.find("@itcr.ac.cr") == -1:
-        print("El formato del correo no es correcto")
-        nuevoEstudiante["correo"]= "Formato no valido"
-    else:
+    nuevoEstudiante["cedula"]=cedulaEstudiante
+    boolean= False
+    for element in listaEstudiantes:
+        if element["cedula"]== cedulaEstudiante:
+            boolean= True;
+
+    if boolean == False:
+        nuevoEstudiante["nombre"]=nombreEstudiante
+        nuevoEstudiante["apellido"]=apellidosEstudiante
+        nuevoEstudiante["direccion"]= direccionEstudiante
+        nuevoEstudiante["telefono"]=telefonoEstudiante
         nuevoEstudiante["correo"]=correoEstudiante
+        if correoEstudiante.find("@itcr.ac.cr") == -1:
+            print("El formato del correo no es correcto")
+            nuevoEstudiante["correo"]= "Formato no valido"
+        else:
+            nuevoEstudiante["correo"]=correoEstudiante
 
-    listaEstudiantes.append(nuevoEstudiante)
-    print("Estudiante guardado con exito")
+        listaEstudiantes.append(nuevoEstudiante)
+        print("Estudiante guardado con exito")
+        print(" ")
+    else:
+        print("El estudiante ya se encuentra registrado")
+        print(" ")
 
+#Function to edit students
 def modificarEstudiante():
-    nombreEstudianteModificar= input("Digite el nombre del estudiante que desea modificar: ")
-
-def eliminarEstudiante():
-    nombreEstudianteEliminar= input("Digite el nombre del estudiante que desea eliminar: ")
-    apellidosEstudianteEliminar= input("Digite los apellidos del estudiante que desea eliminar: ")
+    cedulaEstudianteModificar= input("Digite la cedula del estudiante que desea modificar: ")
 
     for element in listaEstudiantes:
-        if element["nombre"] == nombreEstudianteEliminar and element["apellido"] == apellidosEstudianteEliminar:
+        if element["cedula"] == cedulaEstudianteModificar:
+            print("Cual dato desea modificar?")
+            print("1. Nombre")
+            print("2. Apellidos")
+            print("3. Direccion")
+            print("4. Telefono")
+            print("5. Correo")
+            print("6. Salir")
+            opcion= input("Seleccione la opción por modificar: ")
+            if opcion == "1":
+                nombre= input("Digite el nuevo nombre del estudiante")
+                element["nombre"]= nombre
+                print("Modificado con exito")
+            if opcion == "2":
+                apellido=input("Digite el nuevo apellido del estudiante")
+                element["apellido"]= apellido
+                print("Modificado con exito")
+
+            if opcion == "3":
+                direccion=input("Digite la nueva direccion del estudiante")
+                element["direccion"]= direccion
+                print("Modificado con exito")
+
+            if opcion == "4":
+                telefono=input("Digite el nuevo telefono del estudiante")
+                element["telefono"]=telefono
+                print("Modificado con exito")
+
+            if opcion == "5":
+                correo=input("Digite el nuevo correo del estudiante")
+                if correo.find("@itcr.ac.cr") == -1:
+                    print("El formato del correo no es correcto")
+                    element["correo"]= "Formato no valido"
+                else:
+                    element["correo"]=correo
+                    print("Modificado con exito")
+            if opcion == "6":
+                menu_administrativo()
+    print(listaEstudiantes)
+
+#Function to delete students
+def eliminarEstudiante():
+    cedulaEstudianteEliminar= input("Digite la cedula del estudiante que desea eliminar: ")
+
+    for element in listaEstudiantes:
+        if element["cedula"] == cedulaEstudianteEliminar:
             listaEstudiantes.remove(element)
             print("El estudiante fue eliminado con exito")
+            print("")
         else:
             print("El estudiante no fue encontado en el sistema")
+            "print"
 
 
 
 
-## MANTENIMIENTO DE DOCENTES
+## TEACHER MAINTENANCE
+
+# Function to add a new teacher
 def agregarDocentes():
     nuevoDocente={}
 
+    cedulaDocente= input("Digite la cedula del nuevo docente: ")
     nombreDocente=input("Digite el nombre del nuevo docente: ")
     apellidosDocente=input("Digite los apellidos del nuevo docente: ")
     direccionDocente=input("Digite la direccion del nuevo docente: ")
     telefonoDocente=input("Digite el numero de telefono del nuevo docente: ")
     correoDocente= input("Digite el correo del TEC del nuevo docente: ")
 
-    nuevoDocente["nombre"]=nombreDocente
-    nuevoDocente["apellido"]=apellidosDocente
-    nuevoDocente["direccion"]=direccionDocente
-    nuevoDocente["telefono"]=telefonoDocente
-    if correoDocente.find("@itcr.ac.cr") == -1:
-        print("El formato del correo no es correcto")
-        nuevoDocente["correo"]= "Formato no valido"
+    nuevoDocente["cedula"]= cedulaDocente
+    boolean=False
+    for element in listaDocentes:
+        if element["cedula"] == cedulaDocente:
+            boolean=True;
+    if boolean == False:
+        nuevoDocente["nombre"]=nombreDocente
+        nuevoDocente["apellido"]=apellidosDocente
+        nuevoDocente["direccion"]=direccionDocente
+        nuevoDocente["telefono"]=telefonoDocente
+        if correoDocente.find("@itcr.ac.cr") == -1:
+            print("El formato del correo no es correcto")
+            nuevoDocente["correo"]= "Formato no valido"
+        else:
+            nuevoDocente["correo"]=correoDocente
+        listaDocentes.append(nuevoDocente)
+        print("Docente guardado con exito")
+        print(" ")
     else:
-        nuevoDocente["correo"]=correoDocente
+        print("El docente ya se encuentra registrado")
+        print(" ")
 
 
-    listaDocentes.append(nuevoDocente)
-
+## Function to edit a teacher
 def modificarDocentes():
-    print("En mantenimiento")
-
-
-def eliminarDocente():
-    nombreDocenteEliminar= input("Digite el nombre del docente que desea eliminar: ")
-    apellidosDocenteEliminar= input("Digite los apellidos del docente que desea eliminar: ")
+    cedulaDocenteModificar=input("Digite la cedula del docentte que desea modificar: ")
 
     for element in listaDocentes:
-        if element["nombre"] == nombreDocenteEliminar and element["apellido"] == apellidosDocenteEliminar:
+        if element["cedula"] == cedulaDocenteModificar:
+            print("Cual dato desea modificar?")
+            print("1. Nombre")
+            print("2. Apellidos")
+            print("3. Direccion")
+            print("4. Telefono")
+            print("5. Correo")
+            print("6. Salir")
+            opcion=input("Seleccione la opción por modificar: ")
+            if opcion == "1":
+                nombre=input("Digite el nuevo nombre del docente")
+                element["nombre"]=nombre
+                print("Modificado con exito")
+            if opcion == "2":
+                apellido=input("Digite el nuevo apellido del docente")
+                element["apellido"]=apellido
+                print("Modificado con exito")
+
+            if opcion == "3":
+                direccion=input("Digite la nueva direccion del docente")
+                element["direccion"]=direccion
+                print("Modificado con exito")
+
+            if opcion == "4":
+                telefono=input("Digite el nuevo telefono del docente")
+                element["telefono"]=telefono
+                print("Modificado con exito")
+
+            if opcion == "5":
+                correo=input("Digite el nuevo correo del docente")
+                if correo.find("@itcr.ac.cr") == -1:
+                    print("El formato del correo no es correcto")
+                    element["correo"]="Formato no valido"
+                else:
+                    element["correo"]=correo
+                    print("Modificado con exito")
+            if opcion == "6":
+                menu_administrativo()
+    print(listaDocentes)
+
+
+#Function to delete a teacher
+def eliminarDocente():
+    cedulaDocenteEliminar= input("Digite la cedula del docente que desea eliminar: ")
+
+    for element in listaDocentes:
+        if element["cedula"] == cedulaDocenteEliminar:
             listaDocentes.remove(element)
             print("El docente fue eliminado con exito")
         else:
@@ -110,25 +224,50 @@ def eliminarDocente():
 
 
 
-## MANTENIMIENTO DE CARRERAS
+## CAREER MAINTENANCE
 
+# Function to add a new career
 def agregarCarreras():
     nuevaCarrera={}
 
-    nombreCarrera=input("Digite el nombre de la nueva carrera: ")
     codigoCarrera=input("Digite el código de la nueva carrera: ")
+    nombreCarrera=input("Digite el nombre de la nueva carrera: ")
+    boolean= False
+    for element in listaCarreras:
+        if element["codigo"]== codigoCarrera:
+            boolean= True
+    if boolean== False:
+        nuevaCarrera["codigo"]=codigoCarrera
+        nuevaCarrera["nombre"]=nombreCarrera
+        nuevaCarrera["cursos"]= []
+        nuevaCarrera["docentes"]=[]
+        nuevaCarrera["estudiantes"]=[]
 
-    nuevaCarrera["nombre"]=nombreCarrera
-    nuevaCarrera["codigo"]=codigoCarrera
-    nuevaCarrera["cursos"]= []
-    nuevaCarrera["docentes"]=[]
-    nuevaCarrera["estudiantes"]=[]
+        listaCarreras.append(nuevaCarrera)
+        print("Carrera agregada con exito")
+        print(" ")
+    else:
+        print("La carrera con ese codigo ya se encuentra registrado")
 
-    listaCarreras.append(nuevaCarrera)
-
+## Function to edit a career
 def modificarCarrera():
-    print("En mantenimiento")
+    codigoModificar= input("Digite el código de la carrera que desea modificar")
+    for element in listaCarreras:
+        if element["codigo"] == codigoModificar:
+            print("Cual dato desea modificar?")
+            print("1. Nombre")
+            print("2. Salir")
+            opcion= input("Digite la opción que desea seleccionar: ")
+            if opcion == "1":
+                nombre=input("Digite el nuevo nombre de la carrera")
+                element["nombre"]=nombre
+                print("Modificado con exito")
+            if opcion == "2":
+                menu_administrativo()
+    print(listaCarreras)
 
+
+## Function to delete a career
 def eliminarCarrera():
     codigoCarreraEliminar=input("Digite el código de la carrera que desea eliminar: ")
 
@@ -139,27 +278,54 @@ def eliminarCarrera():
         else:
             print("La carrera no fue encontrada en el sistema")
 
-### MANTENIMIENTO DE CURSOS
+### MAINTAINING COURSES
 
+# Function to add a new course
 def agregarCursos():
     nuevoCurso={}
 
-    nombreCurso=input("Digite el nombre del nuevo curso: ")
     codigoCurso=input("Digite el código del nuevo curso: ")
+    nombreCurso=input("Digite el nombre del nuevo curso: ")
 
-    nuevoCurso["nombre"]=nombreCurso
-    nuevoCurso["codigo"]=codigoCurso
-    nuevoCurso["recintos"]=[]
-    nuevoCurso["aulas"]=[]
-    nuevoCurso["horarios"]=[]
-    nuevoCurso["docentes"]=[]
-    nuevoCurso["estudiantes"]=[]
+    valor= False
+    for element in listaCursos:
+        if element["codigo"]== codigoCurso:
+            valor= True
+    if valor== False:
+        nuevoCurso["nombre"]=nombreCurso
+        nuevoCurso["codigo"]=codigoCurso
+        nuevoCurso["recintos"]=[]
+        nuevoCurso["aulas"]=[]
+        nuevoCurso["horarios"]=[]
+        nuevoCurso["docentes"]=[]
+        nuevoCurso["estudiantes"]=[]
 
-    listaCursos.append(nuevoCurso)
+        listaCursos.append(nuevoCurso)
+        print("El curso ha sido agregado con exito")
+        print(listaCursos)
+        print("")
+    else:
+        print("El curso ya está registrado")
+        print("")
 
+# Function to edit a course
 def modificarCursos():
-    print("En mantenimiento")
+    codigoModificar=input("Digite el código del curso que desea modificar")
+    for element in listaCursos:
+        if element["codigo"] == codigoModificar:
+            print("Cual dato desea modificar?")
+            print("1. Nombre")
+            print("2. Salir")
+            opcion=input("Digite la opción que desea seleccionar: ")
+            if opcion == "1":
+                nombre=input("Digite el nuevo nombre del curso")
+                element["nombre"]=nombre
+                print("Modificado con exito")
+            if opcion == "2":
+                menu_administrativo()
+    print(listaCursos)
 
+# Function to delete a course
 def eliminarCurso():
     codigoCursoEliminar=input("Digite el código del curso que desea eliminar: ")
 
@@ -171,9 +337,9 @@ def eliminarCurso():
             print("El curso no fue encontrado en el sistema")
 
 
-### MANTENIMIENTO DE RECINTOS:
+### MAINTENANCE OF ENCLOSURES:
 
-
+# Function to add a new enclosures
 def agregarRecinto():
     nuevoRecinto={}
 
@@ -181,13 +347,29 @@ def agregarRecinto():
     direccionRecinto=input("Digite la dirección física del nuevo recinto: ")
 
     nuevoRecinto["nombre"]=nombreRecinto
-    nuevoRecinto["codigo"]=direccionRecinto
+    nuevoRecinto["direccion"]=direccionRecinto
 
     listaRecintos.append(nuevoRecinto)
 
+# Function to edit a enclosure
 def modificarRecinto():
-    print("En mantenimiento")
+    nombreModificar=input("Digite el nombre del recinto que desea modificar")
+    for element in listaRecintos:
+        if element["nombre"] == nombreModificar:
+            print("Cual dato desea modificar?")
+            print("1. Dirección")
+            print("2. Salir")
+            opcion=input("Digite la opción que desea seleccionar: ")
+            if opcion == "1":
+                nombre=input("Digite la nueva dirección del recinto")
+                element["direccion"]=nombre
+                print("Modificado con exito")
+            if opcion == "2":
+                menu_administrativo()
+    print(listaRecintos)
 
+
+# Function to delete a enclosure
 def eliminarRecinto():
     nombreRecintoEliminar=input("Digite el nombre del recinto que desea eliminar: ")
 
@@ -199,22 +381,47 @@ def eliminarRecinto():
             print("El recinto no fue encontrado en el sistema")
 
 
-## MANTENIMIENTO DE AULAS
+## CLASSROOM MAINTENANCE
 
+# Function to add a neww classroom
 def agregarAula():
     nuevaAula={}
 
     codigoAula=input("Digite el código de la nueva aula: ")
     recintoAula=input("Digite el recinto al que pertenece la nueva aula: ")
 
-    nuevaAula["codigo"]=codigoAula
-    nuevaAula["recinto"]=recintoAula
+    valor= False
+    for element in listaAulas:
+        if element["codigo"]== codigoAula:
+            valor= True
+    if valor== False:
+        nuevaAula["codigo"]=codigoAula
+        nuevaAula["recinto"]=recintoAula
 
-    listaAulas.append(nuevaAula)
+        listaAulas.append(nuevaAula)
+        print("El aula fue agregado con exito")
+        print(" ")
+    else:
+        print("El aula ya se encuentra registrado")
 
+# Function to edit a classroom
 def modificarAula():
-    print("En mantenimiento")
+    codigoModificar=input("Digite el código del aula que desea modificar")
+    for element in listaAulas:
+        if element["codigo"] == codigoModificar:
+            print("Cual dato desea modificar?")
+            print("1. Recinto")
+            print("2. Salir")
+            opcion=input("Digite la opción que desea seleccionar: ")
+            if opcion == "1":
+                nombre=input("Digite el nuevo recinto del aula")
+                element["recinto"]=nombre
+                print("Modificado con exito")
+            if opcion == "2":
+                menu_administrativo()
+    print(listaAulas)
 
+# Function to delete a classroom
 def eliminarAula():
     codigoAulaEliminar=input("Digite el codigo del aula que desea eliminar: ")
 
@@ -226,8 +433,9 @@ def eliminarAula():
             print("El aula no fue encontrado en el sistema")
 
 
-## MANTENIMIENTO HORARIOS
+## MAINTENANCE OF SCHEDULES
 
+# Add a new schedules
 def agregarHorario():
     nuevoHorario={}
 
@@ -235,15 +443,45 @@ def agregarHorario():
     horaInicio=input("Digite la hora de inicio del nuevo horario: ")
     horaFinal=input("Digite la hora de fin del nuevo horario: ")
 
-    nuevoHorario["nombre"]=nombreHorario
-    nuevoHorario["inicio"]=horaInicio
-    nuevoHorario["fin"]= horaFinal
+    valor= False
+    for e in listaHorarios:
+        if e["nombre"]== nombreHorario:
+            valor= True
+    if valor == False:
+        nuevoHorario["nombre"]=nombreHorario
+        nuevoHorario["inicio"]=horaInicio
+        nuevoHorario["fin"]= horaFinal
 
-    listaHorarios.append(nuevoHorario)
+        listaHorarios.append(nuevoHorario)
+        print("El horario se agregó con exito")
+        print("")
+    else:
+        print("El horario ya se encuentra registrado")
+        print("")
 
+# Edit a schedules
 def modificarHorarios():
-    print("En mantenimiento")
+    nombreModificar=input("Digite el nombre del horario que desea modificar")
+    for element in listaHorarios:
+        if element["nombre"] == nombreModificar:
+            print("Cual dato desea modificar?")
+            print("1. Hora de Inicio")
+            print("2. Hora Final")
+            print("3. Salir")
+            opcion= input("Digite la opción que desea seleccionar: ")
+            if opcion == "1":
+                inicio=input("Digite la nueva hora de inicio")
+                element["inicio"]=inicio
+                print("Modificado con exito")
+            if opcion == "2":
+                fin=input("Digite la nueva hora de fin")
+                element["fin"]=fin
+                print("Modificado con exito")
+            if opcion == "3":
+                menu_administrativo()
+    print(listaHorarios)
 
+# Delete a schedules
 def eliminarHorario():
     nombreHorarioEliminar=input("Digite el nombre del horario que desea eliminar: ")
 
@@ -258,7 +496,9 @@ def eliminarHorario():
 ## SECCION OPERATIVA
 ## VINCULACIONES
 
-# VINCULAR CURSOS CON CARRERAS
+# LINK COURSES WITH RACES
+
+# ASSIGN COURSES TO RACES
 def asignarCursosCarrera():
     carrera= input("Digite el código de la carrera a la que desea agregar un curso.")
     for element in listaCarreras:
@@ -273,6 +513,7 @@ def asignarCursosCarrera():
                 else:
                     print("El curso no se encuentra registrado")
 
+# DISASSEMBLING COURSES TO RACES
 def desasignarCursosCarrera():
     carrera=input("Digite el código de la carrera de la que desea desasignar un curso.")
     for element in listaCarreras:
@@ -286,7 +527,9 @@ def desasignarCursosCarrera():
 
 
 
-## VINCULAR RECINTOS CON CURSOS
+## LINKED ENCLOSURES WITH COURSES
+
+#ASSIGN COURSES TO COURSES
 def asignarRecintosCursos():
     curso= input("Digite el código del curso al que desea agregar un recinto.")
     for element in listaCursos:
@@ -301,6 +544,7 @@ def asignarRecintosCursos():
                 else:
                     print("El recinto no se encuentra registrado")
 
+#DISASSEMBLING COURSES TO COURSES
 def desasignarRecintosCursos():
     curso=input("Digite el código del curso del que desea desasignar un recinto.")
     for element in listaCursos:
@@ -312,7 +556,9 @@ def desasignarRecintosCursos():
                     print("Desvinculación exitosa")
                     print(listaCursos)
 
-## VINCULAR AULAS A CURSOS
+## LINK CLASSROOMS TO COURSES
+
+# ASSIGN CLASSROOMS TO COURSES
 def asignarAulasCursos():
     curso= input("Digite el código del curso al que desea agregar un aula.")
     for element in listaCursos:
@@ -327,6 +573,7 @@ def asignarAulasCursos():
                 else:
                     print("El aula no se encuentra registrado")
 
+#DISASSEMBLE CLASSROOMS TO COURSES
 def desasignarAulasCursos():
     curso=input("Digite el código del curso del que desea desasignar un recinto.")
     for element in listaCursos:
@@ -338,7 +585,9 @@ def desasignarAulasCursos():
                     print("Desvinculación exitosa")
                     print(listaCursos)
 
-## VINCULAR HORARIOS A CURSOS
+## LINK SCHEDULES TO COURSES
+
+# ASSIGN SCHEDULES TO COURSES
 def asignarHorariosCursos():
     curso= input("Digite el código del curso al que desea agregar un horario.")
     for element in listaCursos:
@@ -353,6 +602,7 @@ def asignarHorariosCursos():
                 else:
                     print("El horario no se encuentra registrado")
 
+# DISASSEMBLE SCHEDULES TO COURSES
 def desasignarHorariosCursos():
     curso=input("Digite el código del curso del que desea desasignar un horario.")
     for element in listaCursos:
@@ -365,41 +615,44 @@ def desasignarHorariosCursos():
                     print(listaCursos)
 
 
-## VINCULAR ESTUDIANTES A CURSOS
+## LINK STUDENTS TO COURSES
+
+#ASSIGN STUDENTS TO COURSES
 def asignarEstudiantesCursos():
     curso= input("Digite el código del curso al que desea agregar un estudiante.")
     for element in listaCursos:
         if element["codigo"] == curso:
-            estudiante= input("Digite el nombre del estudiante que desea vincular")
+            estudiante= input("Digite la cedula del estudiante que desea vincular")
             for elemento in listaEstudiantes:
-                if elemento["nombre"] == estudiante:
+                if elemento["cedula"] == estudiante:
                     element["estudiantes"].append(estudiante)
                     print("Vinculación exitosa")
                     print(listaCursos)
 
                 else:
                     print("El estudiante no se encuentra registrado")
-
+#DISASSEMBLING STUDENTS TO COURSES
 def desasignarEstudiantesCursos():
     curso=input("Digite el código del curso del que desea desasignar un estudiante.")
     for element in listaCursos:
         if element["codigo"] == curso:
-            estudiante= input("Digite el nombre del estudiante que desea desvincular")
+            estudiante= input("Digite la cedula del estudiante que desea desvincular")
             for elemento in element["estudiantes"]:
                 if elemento == estudiante:
                     element["estudiantes"].remove(elemento)
                     print("Desvinculación exitosa")
                     print(listaCursos)
 
-## VINCULACION DOCENTES A CURSOS
+## LINKING COURSES TO COURSES
 
+# ASSIGN TEACHERS TO COURSES
 def asignarDocentesCursos():
     curso= input("Digite el código del curso al que desea agregar un docente.")
     for element in listaCursos:
         if element["codigo"] == curso:
-            docente= input("Digite el nombre del docente que desea vincular")
+            docente= input("Digite la cedula del docente que desea vincular")
             for elemento in listaDocentes:
-                if elemento["nombre"] == docente:
+                if elemento["cedula"] == docente:
                     element["docentes"].append(docente)
                     print("Vinculación exitosa")
                     print(listaCursos)
@@ -407,11 +660,12 @@ def asignarDocentesCursos():
                 else:
                     print("El docente no se encuentra registrado")
 
+# UNLOCK TEACHERS TO COURSES
 def desasignarDocentesCursos():
     curso=input("Digite el código del curso del que desea desasignar un docente.")
     for element in listaCursos:
         if element["codigo"] == curso:
-            docente= input("Digite el nombre del docente que desea desvincular")
+            docente= input("Digite la cedula del docente que desea desvincular")
             for elemento in element["docentes"]:
                 if elemento == docente:
                     element["docentes"].remove(elemento)
@@ -419,14 +673,16 @@ def desasignarDocentesCursos():
                     print(listaCursos)
 
 
-## VINCULAR DOCENTE CARRERA
+## LINKED TEACHER WITH CAREER
+
+# ASSIGN TEACHER TO CAREER
 def asignarDocenteCarrera():
     carrera=input("Digite el código de la carrera a la que desea agregar un docente.")
     for element in listaCarreras:
         if element["codigo"] == carrera:
-            docente=input("Digite el nombre del docente que desea vincular")
+            docente=input("Digite la cedula del docente que desea vincular")
             for elemento in listaDocentes:
-                if elemento["nombre"] == docente:
+                if elemento["cedula"] == docente:
                     element["docentes"].append(docente)
                     print("Vinculación exitosa")
                     print(listaCarreras)
@@ -434,12 +690,12 @@ def asignarDocenteCarrera():
                 else:
                     print("El docente no se encuentra registrado")
 
-
+# ELIMINATE CAREER TEACHER
 def desasignarDocentesCarrera():
     carrera=input("Digite el código de la carrera del que desea desasignar un docente.")
     for element in listaCarreras:
         if element["codigo"] == carrera:
-            docente=input("Digite el nombre del docente que desea desvincular")
+            docente=input("Digite la cedula del docente que desea desvincular")
             for elemento in element["docentes"]:
                 if elemento == docente:
                     element["docentes"].remove(elemento)
@@ -447,14 +703,16 @@ def desasignarDocentesCarrera():
                     print(listaCarreras)
 
 
-## VINCULACION DOCENTE CARRERA
+## CAREER TRAINING LINKAGE
+
+# ASSIGN TEACHER TO CAREER
 def asignarEstudiantesCarrera():
     carrera= input("Digite el código de la carrera al que desea agregar un estudiante.")
     for element in listaCarreras:
         if element["codigo"] == carrera:
-            estudiante= input("Digite el nombre del estudiante que desea vincular")
+            estudiante= input("Digite la cedula del estudiante que desea vincular")
             for elemento in listaEstudiantes:
-                if elemento["nombre"] == estudiante:
+                if elemento["cedula"] == estudiante:
                     element["estudiantes"].append(estudiante)
                     print("Vinculación exitosa")
                     print(listaCarreras)
@@ -466,15 +724,14 @@ def desasignarEstudiantesCarrera():
     carrera=input("Digite el código de la carrera del que desea desasignar un estudiante.")
     for element in listaCarreras:
         if element["codigo"] == carrera:
-            estudiante= input("Digite el nombre del estudiante que desea desvincular")
+            estudiante= input("Digite la cedula del estudiante que desea desvincular")
             for elemento in element["estudiantes"]:
                 if elemento == estudiante:
                     element["estudiantes"].remove(elemento)
                     print("Desvinculación exitosa")
                     print(listaCarreras)
 
-## REPORTES
-
+## REPORTS
 def reporteUno():
     estudiante= input("Digite el nombre del estudiante que desea ver: ")
     lista=[]
@@ -489,7 +746,7 @@ def reporteUno():
             print(e)
 
 def reporteDos():
-    estudiante=input("Digite el nombre del estudiante que desea ver: ")
+    estudiante=input("Digite la cedula del estudiante que desea ver: ")
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
@@ -500,7 +757,7 @@ def reporteDos():
     print(" ")
 
 def reporteTres():
-    docente=input("Digite el nombre del docente que desea ver: ")
+    docente=input("Digite la cedula del docente que desea ver: ")
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
