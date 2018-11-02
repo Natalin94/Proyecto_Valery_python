@@ -1,10 +1,10 @@
-﻿
+﻿import time
 # List of dictionaries to save the data, with default data
 listaAdministradores=[{'usuario':'valery','contraseña':'valery123'}, {'usuario':'carlos','contraseña':'carlos123'}, {'usuario':'julissa','contraseña':'julissa123'}]
 listaEstudiantes=[{'cedula':'201230123','nombre':'Andres','apellido':'Martinez Gonzales','direccion': 'Ciudad Quesada', 'telefono': '86543223', 'correo':'amartinez@itcr.ac.cr'}]
 listaDocentes=[{'cedula':'201230198','nombre':'Margarita','apellido':'Campos Zamora','direccion': 'Ciudad Quesada', 'telefono': '89767654', 'correo':'mcampos@itcr.ac.cr'}]
 listaCarreras=[{'nombre' : 'Ingeniería en Producción Industrial', 'codigo' : 'PI', 'cursos':['Intro', 'Mate'],'docentes':['201230198'],'estudiantes':['201230123']}, {'nombre' : 'Ingeniería Electrónica', 'codigo' : 'EL', 'cursos':['Calculo'],'docentes':[],'estudiantes':['Andres']},  {'nombre': 'Ingeniería en Computación', 'codigo' : 'IC', 'cursos':[],'docentes':[],'estudiantes':[]}]
-listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':['201230198'], 'estudiantes':['201230123']},{'nombre' : 'Mate', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}, {'nombre' : 'Calculo', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':['Andres', 'Maria', 'Juan']}]
+listaCursos=[{'nombre' : 'Intro', 'codigo' : '01', 'recintos':['San Carlos'], 'aulas':['01'], 'horarios':[], 'docentes':['201230198'], 'estudiantes':['201230123']},{'nombre' : 'Mate', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':[]}, {'nombre' : 'Calculo', 'codigo' : '01', 'recintos':[], 'aulas':[], 'horarios':[], 'docentes':[], 'estudiantes':['Andres', 'Maria', 'Juan']}]
 listaRecintos=[{'nombre':'San Carlos', 'direccion': 'Santa Clara frente al chino'}]
 listaAulas=[{'codigo': '01', 'recinto': 'San Carlos'}]
 listaHorarios=[{'nombre':'matutino','inicio':'8:00','fin':'11:00'}]
@@ -127,8 +127,40 @@ def eliminarEstudiante():
             "print"
 
 
+def imprimirListaEstudiantes():
+    print("Lista de estudiantes registrados")
+    for e in listaEstudiantes:
+        print("-", e["nombre"],e["apellido"])
 
+def imprimirListaEstudiantesDocentes():
+    print("Lista de docentes registrados")
+    for e in listaDocentes:
+        print("-", e["nombre"],e["apellido"])
 
+def imprimirListaCarreras():
+    print("Lista de carreras registrados")
+    for e in listaCarreras:
+        print("-", e["nombre"])
+
+def imprimirListaCursos():
+    print("Lista de cursos registrados")
+    for e in listaCursos:
+        print("-", e["nombre"])
+
+def imprimirListaRecintos():
+    print("Lista de recintos registrados")
+    for e in listaRecintos:
+        print("-", e["nombre"])
+
+def imprimirListaAulas():
+    print("Lista de aulas registradas")
+    for e in listaAulas:
+        print("-", e["codigo"])
+
+def imprimirListaHorarios():
+    print("Lista de horarios registrados")
+    for e in listaHorarios:
+        print("-", e["nombre"])
 ## TEACHER MAINTENANCE
 
 # Function to add a new teacher
@@ -735,6 +767,8 @@ def desasignarEstudiantesCarrera():
 def reporteUno():
     estudiante= input("Digite el nombre del estudiante que desea ver: ")
     lista=[]
+    localtime=time.asctime(time.localtime(time.time()))
+    print("Hora Actual:", localtime)
     for element in listaCarreras:
         if estudiante in element["estudiantes"]:
             lista.append(element["nombre"])
@@ -747,6 +781,8 @@ def reporteUno():
 
 def reporteDos():
     estudiante=input("Digite la cedula del estudiante que desea ver: ")
+    localtime=time.asctime(time.localtime(time.time()))
+    print("Hora Actual:", localtime)
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
@@ -758,6 +794,8 @@ def reporteDos():
 
 def reporteTres():
     docente=input("Digite la cedula del docente que desea ver: ")
+    localtime=time.asctime(time.localtime(time.time()))
+    print("Hora Actual:", localtime)
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
@@ -771,6 +809,8 @@ def reporteTres():
 def reporteCuatro():
     cursoMayor=0
     nomCursoMayor= ""
+    localtime=time.asctime(time.localtime(time.time()))
+    print("Hora Actual:", localtime)
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
@@ -787,6 +827,8 @@ def reporteCuatro():
 def reporteCinco():
     cursoMayor=0
     nomCursoMayor=""
+    localtime=time.asctime(time.localtime(time.time()))
+    print("Hora Actual:", localtime)
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
@@ -804,6 +846,8 @@ def reporteSeis():
     cursoMayor=0
     nomCursoMayor=""
     horario=[]
+    localtime=time.asctime(time.localtime(time.time()))
+    print("Hora Actual:", localtime)
     for element in listaCarreras:
         print(element["nombre"])
         for x in element["cursos"]:
@@ -819,7 +863,25 @@ def reporteSeis():
 
 
 def reporteSiete():
-    print("")
+    estudiante= input("Digite la cedula del estudiante que desea consultar")
+    localtime=time.asctime( time.localtime(time.time()) )
+    print("Hora Actual:", localtime)
+    for element in listaCarreras:
+        if estudiante in element["estudiantes"]:
+            print(element["nombre"])
+            for e in element["cursos"]:
+                for c in listaCursos:
+                    if e == c["nombre"]:
+                        print("- ",c["nombre"])
+                        if estudiante in c["estudiantes"]:
+                            print("     Recintos:",c["recintos"])
+                            print("     Aulas", c["aulas"])
+                            print("     Horarios", c["horarios"])
+
+
+
+
+
 
 
 ## MENU MANTENIMIENTOS
@@ -841,7 +903,8 @@ def menu_administrativo():
         print("1.Agregar nuevos estudiantes")
         print("2.Modificar estudiante")
         print("3.Eliminar estudiante")
-        print("4.Salir")
+        print("4.Ver lista de estudiante")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarEstudiantes()
@@ -853,6 +916,9 @@ def menu_administrativo():
             eliminarEstudiante()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaEstudiantes()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
@@ -861,7 +927,8 @@ def menu_administrativo():
         print("1.Agregar nuevos docentes")
         print("2.Modificar docente")
         print("3.Eliminar docente")
-        print("4.Salir")
+        print("4.Ver lista de docentes")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarDocentes()
@@ -873,6 +940,9 @@ def menu_administrativo():
             eliminarDocente()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaEstudiantesDocentes()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
@@ -881,7 +951,8 @@ def menu_administrativo():
         print("1.Agregar nueva carrera")
         print("2.Modificar carrera")
         print("3.Eliminar carrera")
-        print("4.Salir")
+        print("4.Ver lista de carreras")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarCarreras()
@@ -893,6 +964,9 @@ def menu_administrativo():
             eliminarCarrera()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaCarreras()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
@@ -901,7 +975,8 @@ def menu_administrativo():
         print("1.Agregar nuevo curso")
         print("2.Modificar curso")
         print("3.Eliminar curso")
-        print("4.Salir")
+        print("4.Ver lista de cursos")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarCursos()
@@ -913,6 +988,9 @@ def menu_administrativo():
             eliminarCurso()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaCursos()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
@@ -921,7 +999,8 @@ def menu_administrativo():
         print("1.Agregar nuevo recinto")
         print("2.Modificar recinto")
         print("3.Eliminar recinto")
-        print("4.Salir")
+        print("4.Ver lista de recintos")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarRecinto()
@@ -933,6 +1012,9 @@ def menu_administrativo():
             eliminarRecinto()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaRecintos()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
@@ -941,7 +1023,8 @@ def menu_administrativo():
         print("1.Agregar nueva aula")
         print("2.Modificar aula")
         print("3.Eliminar aula")
-        print("4.Salir")
+        print("4.Ver lista de aulas")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarAula()
@@ -953,6 +1036,9 @@ def menu_administrativo():
             eliminarAula()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaAulas()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
@@ -961,7 +1047,8 @@ def menu_administrativo():
         print("1.Agregar nuevo horario")
         print("2.Modificar horario")
         print("3.Eliminar horario")
-        print("4.Salir")
+        print("4.Ver lista de horarios")
+        print("5.Salir")
         opcion4=input("Digite la opcion que desea realizar: ")
         if opcion4 == "1":
             agregarHorario()
@@ -973,6 +1060,9 @@ def menu_administrativo():
             eliminarHorario()
             menu_administrativo()
         if opcion4 == "4":
+            imprimirListaHorarios()
+            menu_administrativo()
+        if opcion4 == "5":
             menu_administrativo()
         else:
             print("La opción no es valida")
