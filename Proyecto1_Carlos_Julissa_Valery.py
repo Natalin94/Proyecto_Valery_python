@@ -29,7 +29,23 @@ def validarUsuario():
         print("El usuario no se encuentra registrado.")
         validarUsuario()
 
+def editarConstraseña():
+    usuario= input("Digite su nombre de usuario: ")
+    contraseña= input("Digite su contraseña actual: ")
 
+    validar= False
+    for element in listaAdministradores:
+        if element['usuario']== usuario:
+            if element['contraseña']== contraseña:
+                nuevacontraseña=input("Digite su nueva contraseña: ")
+                element['contraseña']= nuevacontraseña
+                print("Contraseña editada con éxito")
+                validar= True
+                menu_principal()
+
+    if validar == False:
+        print("El usuario no se encuentra registrado.")
+        validarUsuario()
 
 ## STUDENT MAINTENANCE
 # Function to add new students
@@ -71,9 +87,10 @@ def agregarEstudiantes():
 #Function to edit students
 def modificarEstudiante():
     cedulaEstudianteModificar= input("Digite la cedula del estudiante que desea modificar: ")
-
+    valor=False
     for element in listaEstudiantes:
         if element["cedula"] == cedulaEstudianteModificar:
+            valor= True
             print("Cual dato desea modificar?")
             print("1. Nombre")
             print("2. Apellidos")
@@ -111,8 +128,8 @@ def modificarEstudiante():
                     print("Modificado con exito")
             if opcion == "6":
                 menu_administrativo()
-    print(listaEstudiantes)
-
+    if valor== False:
+        print("El estudiante no se encuentra registrado")
 #Function to delete students
 def eliminarEstudiante():
     cedulaEstudianteEliminar= input("Digite la cedula del estudiante que desea eliminar: ")
@@ -200,9 +217,10 @@ def agregarDocentes():
 ## Function to edit a teacher
 def modificarDocentes():
     cedulaDocenteModificar=input("Digite la cedula del docentte que desea modificar: ")
-
+    valor= False
     for element in listaDocentes:
         if element["cedula"] == cedulaDocenteModificar:
+            valor= True
             print("Cual dato desea modificar?")
             print("1. Nombre")
             print("2. Apellidos")
@@ -240,7 +258,8 @@ def modificarDocentes():
                     print("Modificado con exito")
             if opcion == "6":
                 menu_administrativo()
-    print(listaDocentes)
+    if valor== False:
+        print("El docente no se encuentra registrado")
 
 
 #Function to delete a teacher
@@ -284,8 +303,10 @@ def agregarCarreras():
 ## Function to edit a career
 def modificarCarrera():
     codigoModificar= input("Digite el código de la carrera que desea modificar")
+    valor=False
     for element in listaCarreras:
         if element["codigo"] == codigoModificar:
+            valor= True
             print("Cual dato desea modificar?")
             print("1. Nombre")
             print("2. Salir")
@@ -296,7 +317,8 @@ def modificarCarrera():
                 print("Modificado con exito")
             if opcion == "2":
                 menu_administrativo()
-    print(listaCarreras)
+    if valor== False:
+        print("La carrera no se encuentra registrada")
 
 
 ## Function to delete a career
@@ -343,9 +365,11 @@ def agregarCursos():
 # Function to edit a course
 def modificarCursos():
     codigoModificar=input("Digite el código del curso que desea modificar")
+    valor= False
     for element in listaCursos:
         if element["codigo"] == codigoModificar:
             print("Cual dato desea modificar?")
+            valor= True
             print("1. Nombre")
             print("2. Salir")
             opcion=input("Digite la opción que desea seleccionar: ")
@@ -355,7 +379,8 @@ def modificarCursos():
                 print("Modificado con exito")
             if opcion == "2":
                 menu_administrativo()
-    print(listaCursos)
+    if valor== False:
+        print("El curso no se encuentra registrado")
 
 # Function to delete a course
 def eliminarCurso():
@@ -386,8 +411,10 @@ def agregarRecinto():
 # Function to edit a enclosure
 def modificarRecinto():
     nombreModificar=input("Digite el nombre del recinto que desea modificar")
+    valor= False
     for element in listaRecintos:
         if element["nombre"] == nombreModificar:
+            valor= True
             print("Cual dato desea modificar?")
             print("1. Dirección")
             print("2. Salir")
@@ -398,7 +425,8 @@ def modificarRecinto():
                 print("Modificado con exito")
             if opcion == "2":
                 menu_administrativo()
-    print(listaRecintos)
+    if valor== False:
+        print("El recinto no se encuentra registrado")
 
 
 # Function to delete a enclosure
@@ -439,8 +467,10 @@ def agregarAula():
 # Function to edit a classroom
 def modificarAula():
     codigoModificar=input("Digite el código del aula que desea modificar")
+    valor= False
     for element in listaAulas:
         if element["codigo"] == codigoModificar:
+            valor= True
             print("Cual dato desea modificar?")
             print("1. Recinto")
             print("2. Salir")
@@ -451,7 +481,8 @@ def modificarAula():
                 print("Modificado con exito")
             if opcion == "2":
                 menu_administrativo()
-    print(listaAulas)
+    if valor== False:
+        print("El recinto no se encuentra registrado")
 
 # Function to delete a classroom
 def eliminarAula():
@@ -494,8 +525,10 @@ def agregarHorario():
 # Edit a schedules
 def modificarHorarios():
     nombreModificar=input("Digite el nombre del horario que desea modificar")
+    valor = False
     for element in listaHorarios:
         if element["nombre"] == nombreModificar:
+            valor= True
             print("Cual dato desea modificar?")
             print("1. Hora de Inicio")
             print("2. Hora Final")
@@ -511,7 +544,8 @@ def modificarHorarios():
                 print("Modificado con exito")
             if opcion == "3":
                 menu_administrativo()
-    print(listaHorarios)
+    if valor== False:
+        print("El horario no se encuentra registrado")
 
 # Delete a schedules
 def eliminarHorario():
@@ -1284,8 +1318,9 @@ def menu_principal():
     print("1.Sección administrativa")
     print("2.Sección operativa")
     print("3.Reportes")
-    print("4.Volver al menú")
-    print("5.Salir del sistema")
+    print("4.Editar contraseña")
+    print("5.Volver al menú")
+    print("6.Salir del sistema")
     print()
     opcion=input("Digite opción que desea realizar: ")
     if opcion=="1":
@@ -1298,11 +1333,14 @@ def menu_principal():
     if opcion=="3":
         print()
         return menu_reportes()
-
     if opcion=="4":
+        editarConstraseña()
+        return menu_principal()
+
+    if opcion=="5":
         print()
         return menu_principal()
-    if opcion=="5":
+    if opcion=="6":
         print()
         print ("Gracias por utilizar nuestro sistema.  ")
     else:
